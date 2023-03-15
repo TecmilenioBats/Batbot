@@ -54,21 +54,41 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
 
     double time = Timer.getFPGATimestamp();
-
-    if (time - startTime < 3){
-    m_leftMotor.set(0.47);
-    m_rightMotor.set(-0.6);
+    //sube a la charge station, tenemos menor distancia por lo cual queremos mas potencia para poder subir
+    /*if (time - startTime < 2.5){
+    m_leftMotor.set(0.6);
+    m_rightMotor.set(-0.7);
     } else {
        m_leftMotor.set(0);
        m_rightMotor.set(0);   
     }
+    */
+    if(time - startTime < 1.5){
+      m_leftMotor.set(0.7);
+      m_rightMotor.set(-0.8);
+    } else {
+      m_leftMotor.set(0);
+      m_rightMotor.set(0);
+    }
+    
+    /* 
+    MISMOS VALORES PERO CON 1 SEGUNDO ADICIONAL
+    if (time - startTime < 3){
+    m_leftmotor.set(0.47);
+    m_rightMotor.set(-0.6);
+    } else{
+        m_leftmotor.set(0);
+        m_rightmotor.set(0)
+    }
+*/
+    
   }
 
   @Override
   public void teleopInit() {}
 
   private boolean toggledvalue = false;
-private LocalDateTime lastToggleDateTime =java.time.LocalDateTime.now(); 
+  private LocalDateTime lastToggleDateTime =java.time.LocalDateTime.now(); 
 
 
   @Override
@@ -76,7 +96,7 @@ private LocalDateTime lastToggleDateTime =java.time.LocalDateTime.now();
 
     // Configuracion movimiento del robot con correccion de curso
 
-    double turn = driverJoystick.getRawAxis(2) * 0.3;
+    double turn = driverJoystick.getRawAxis(2) * 0.4;//estaba anteriormente en 0.3
     turn = turn + turn * 0.1;
 
     double speed = -driverJoystick.getRawAxis(1) * 0.75;
@@ -128,7 +148,7 @@ private LocalDateTime lastToggleDateTime =java.time.LocalDateTime.now();
       }
      }
      piston1.set(toggledvalue);
-     
+
 
 
 
@@ -146,7 +166,7 @@ private LocalDateTime lastToggleDateTime =java.time.LocalDateTime.now();
   //                                             pondra la variable en true para que asi se cicle */
   //     piston2.set(true);
   //     Acci_Pist = false;
-      
+
   //   } else {
 
   //     piston2.set(false);
